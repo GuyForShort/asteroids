@@ -1,4 +1,5 @@
 import pygame
+
 from constants import *
 def main():
     pygame.init()
@@ -8,13 +9,16 @@ def main():
     print(f"Screen height: {SCREEN_HEIGHT}")
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     game = "on"
+    clock = pygame.time.Clock() 
+    dt = 0
     while game == "on":
-        screen.fill(000)
-        pygame.display.flip()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 return
+        screen.fill(000)
+        pygame.display.flip()
+        dt = clock.tick(60) /1000
+        
 
 
 
