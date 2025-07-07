@@ -7,11 +7,13 @@ def main():
     print("Starting Asteroids!")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")
+    
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     game = "on"
     clock = pygame.time.Clock() 
     dt = 0
     player=player((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2),PLAYER_RADIUS)
+
     while game == "on":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
