@@ -7,6 +7,11 @@ from player import *
 
 # constants holds all the  ... constants
 from constants import *
+#asteroids stuff
+from asteroid import *
+# making asteroids and how
+from asteroidfield import *
+
 #still not 100% sure why we run the program in a function... 
 def main():
 
@@ -20,7 +25,10 @@ def main():
 # set up groups
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
-    player.containers = (updatable, drawable)
+    asteroids = pygame.sprite.Group()
+    AsteroidField.containers = (updatable)
+    Player.containers = (updatable, drawable)
+    Asteroid.containers = (updatable, drawable, asteroids)
 #pygame magic to make a playing window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # deffo did this wrong, but just in case there is a need to kill the game, update this variable with a key press
@@ -34,8 +42,10 @@ def main():
     
 
 # Create the player (triangle but really a circle) ship
-    Player = player((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2),PLAYER_RADIUS)
+    player = Player((SCREEN_WIDTH/2),(SCREEN_HEIGHT/2),PLAYER_RADIUS)
 
+#set the field in place
+    asteroid_field = AsteroidField()
 
 # litteral gameplay loop
     while game == "on":
