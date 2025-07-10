@@ -3,8 +3,8 @@ import pygame
 #player.py holds player class and functions
 
 from player import *
-
-
+import sys
+from shot import *
 # constants holds all the  ... constants
 from constants import *
 #asteroids stuff
@@ -29,6 +29,8 @@ def main():
     AsteroidField.containers = (updatable)
     Player.containers = (updatable, drawable)
     Asteroid.containers = (updatable, drawable, asteroids)
+    shots = pygame.sprite.Group()
+    Shot.containers = (updatable, drawable, shots)
 #pygame magic to make a playing window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 # deffo did this wrong, but just in case there is a need to kill the game, update this variable with a key press
@@ -56,6 +58,16 @@ def main():
         screen.fill(000)
     #do the space ship and rock things like flying n stuff
         updatable.update(dt)
+    # check if crashed
+        for asteroid in asteroids:
+            if player.crash(asteroid):
+                raise sys.exit("Game Over!")
+    # check if hit asteroid with shot
+        for asteroid in asteroids:
+            for shot in shots:
+                if shot.crash(asteroid):
+                    shot.kill()
+                    asteroid.kill()
     #and show that on the screen
         for thing in drawable:
             thing.draw(screen)
